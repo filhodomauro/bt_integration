@@ -11,5 +11,5 @@ def get_ticker():
     }
     req = requests.get(TICKER_BT_PATH,headers=headers)
     if req.status_code != 200:
-        raise Exception("Error to get ticker")
+        raise Exception("Error to get ticker: {}".format(req.status_code))
     return req.json()
