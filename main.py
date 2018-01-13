@@ -13,9 +13,11 @@ def main():
     today = datetime.datetime.now()
     dao = BitcointradeDao(db_path)
     registrate_bitcoin_data(dao, sheet_id, today)
+    print 'Done'
 
 def registrate_bitcoin_data(dao, sheet_id, today):
     str_date = today.strftime("%Y-%m-%d")
+    print str_date
     ticker = bt_client.get_ticker()
     dao.add_transaction(str_date, today.hour, ticker)
     transactions_values = dao.get_transactions_hour(str_date, today.hour)
