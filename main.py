@@ -15,8 +15,9 @@ def main():
         dao = BitcointradeDao(db_path)
         registrate_bitcoin_data(dao, sheet_id, today)
         print 'Done'
-    except:
-        print "Unexpected error:", sys.exc_info()[0]
+    except Exception as e:
+        print "Unexpected error on bitcointrade check"
+        print e
         raise
 
 def registrate_bitcoin_data(dao, sheet_id, today):
