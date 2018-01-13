@@ -6,7 +6,7 @@ echo "Installing requests..."
 pip install "requests[security]"
 echo "Installing sqlite3..."
 sudo apt-get install sqlite3
-export SQLITE3_DBS=~/.sqlite3
+export SQLITE3_DBS="${HOME}/.sqlite3"
 export DB_NAME=bitcointrade.db
 if [ ! -d "$SQLITE3_DBS" ]; then
   echo "Creating ${DB_NAME}..."
