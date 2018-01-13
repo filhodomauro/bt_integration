@@ -7,17 +7,20 @@ from bitcointrade_dao import BitcointradeDao
 
 RANGE = 'data!A:D'
 def main():
-    print 'Getting Ticker'
-    sheet_id = os.environ['BITCOINTRADE_SHEET_ID']
-    db_path = os.environ['DB_PATH']
-    today = datetime.datetime.now()
-    dao = BitcointradeDao(db_path)
-    registrate_bitcoin_data(dao, sheet_id, today)
-    print 'Done'
+    try:
+        print 'Getting Ticker'
+        sheet_id = os.environ['BITCOINTRADE_SHEET_ID']
+        db_path = os.environ['DB_PATH']
+        today = datetime.datetime.now()
+        dao = BitcointradeDao(db_path)
+        registrate_bitcoin_data(dao, sheet_id, today)
+        print 'Done'
+    except:
+        print "Unexpected error:", sys.exc_info()[0]
+        raise
 
 def registrate_bitcoin_data(dao, sheet_id, today):
     str_date = today.strftime("%Y-%m-%d")
-    print str_date
     ticker = bt_client.get_ticker()
     dao.add_transaction(str_date, today.hour, ticker)
     transactions_values = dao.get_transactions_hour(str_date, today.hour)
