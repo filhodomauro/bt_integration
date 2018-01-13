@@ -13,4 +13,3 @@ def add_row(sheet_id, range, values):
     }
     result = service.spreadsheets().values().append(
         spreadsheetId=sheet_id, range=rangeName, valueInputOption='RAW', body=body).execute()
-    print result
