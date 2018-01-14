@@ -24,15 +24,19 @@ def registrate_bitcoin_data(dao, sheet_id, today):
     str_date = today.strftime("%Y-%m-%d")
     ticker = bt_client.get_ticker()
     dao.add_transaction(str_date, today.hour, ticker)
-    transactions_values = dao.get_transactions_hour(str_date, today.hour)
+    if today.minute == 59:
+        transactions_values = dao.get_transactions_hour(str_date, today.hour)
+        update_sheet(sheet_id, str_date, today.hour, transactions_values)
+    dao.close()
+
+def update_sheet(sheet_id, str_date, hour, transactions_values):
     google_sheets_client.add_row(sheet_id, RANGE,
         [[
             str_date,
-            today.hour,
+            hour,
             transactions_values['min'],
             transactions_values['max']
         ]])
-    dao.close()
 
 if __name__ == '__main__':
     main()
